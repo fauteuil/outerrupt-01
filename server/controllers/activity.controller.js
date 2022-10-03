@@ -1,4 +1,4 @@
-const Activity = require("../models/activity.model");
+const Activity = require('../models/activity.model');
 
 /**
  * It's an async function that uses the Activity model to find all activities and then returns a status
@@ -11,6 +11,7 @@ const getActivities = async (req, res) => {
     const activities = await Activity.find();
     res.status(200).json(activities);
   } catch (err) {
+    console.log('dude, wtf?');
     res.status(500).json({ message: err.message });
   }
 };

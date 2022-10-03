@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import "./Login.css";
+import './Login.css';
 
 const Login = () => {
   /**
@@ -12,12 +12,17 @@ const Login = () => {
     event.preventDefault();
     const { email, password } = event.target;
 
+    // console.log(
+    //   'process.env.REACT_APP_BACKEND_URL',
+    //   process.env.REACT_APP_BACKEND_URL
+    // );
+
     const response = await fetch(
       `${process.env.REACT_APP_BACKEND_URL}/auth/login`,
       {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email: email.value,
@@ -27,23 +32,23 @@ const Login = () => {
     );
 
     const data = await response.json();
-    localStorage.setItem("token", data.token);
+    localStorage.setItem('token', data.token);
     window.location.reload();
   };
 
   return (
-    <div className="login">
+    <div className='login'>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <span>
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" />
+          <label htmlFor='email'>Email:</label>
+          <input type='email' id='email' name='email' />
         </span>
         <span>
-          <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" />
+          <label htmlFor='password'>Password:</label>
+          <input type='password' id='password' name='password' />
         </span>
-        <button type="submit">Login</button>
+        <button type='submit'>Login</button>
       </form>
     </div>
   );

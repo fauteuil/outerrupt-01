@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import "./App.css";
+import './App.css';
 
 const App = () => {
   const [activities, setActivities] = useState([]);
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
 
   /* Fetching the data from the backend and setting the state of activities to the data. */
   useEffect(() => {
@@ -38,41 +38,41 @@ const App = () => {
     };
 
     await fetch(`${process.env.REACT_APP_BACKEND_URL}/activity`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(newActivity),
     });
 
-    event.target.activity.value = "";
-    event.target.time.value = "";
+    event.target.activity.value = '';
+    event.target.time.value = '';
     window.location.reload();
   };
 
   return (
-    <div className="app">
-      <header className="app-header">
+    <div className='app'>
+      <header className='app-header'>
         <h1>Productivity Tracker</h1>
         <form onSubmit={addActivity}>
           <div>
-            <label htmlFor="activity">Activity:</label>
+            <label htmlFor='activity'>Activity:</label>
             <input
-              type="text"
-              id="activity"
-              name="activity"
-              autoComplete="off"
+              type='text'
+              id='activity'
+              name='activity'
+              autoComplete='off'
             />
           </div>
           <div>
-            <label htmlFor="time">Time Taken:</label>
-            <input type="text" id="time" name="time" autoComplete="off" />
+            <label htmlFor='time'>Time Taken:</label>
+            <input type='text' id='time' name='time' autoComplete='off' />
           </div>
-          <button type="submit">Add</button>
+          <button type='submit'>Add</button>
         </form>
       </header>
-      <main className="app-main">
+      <main className='app-main'>
         <h2>Today</h2>
 
         {activities && activities.length > 0 ? (
