@@ -1,0 +1,15 @@
+{
+  "name": "outerrupt-01",
+  "version": "1.0.0",
+  "description": "a simple life-balance nag",
+  "main": "index.js",
+  "repository": "https://github.com/fauteuil/outerrupt-01.git",
+  "author": "Dave Held <dav3h3ld@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "server": "yarn --cwd server dev",
+    "client": "yarn --cwd client start",
+    "dev": "yarn server & yarn client"
+  }
+}
