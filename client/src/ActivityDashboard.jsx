@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 
 import './App.css';
 import './Layout.css';
-import { labels } from './common/text.ts';
+import { labels } from './common/text';
 
-const App = () => {
+const ActivityDashboard = () => {
   const [activities, setActivities] = useState([]);
 
   const token = localStorage.getItem('token');
@@ -88,45 +88,9 @@ const App = () => {
         ) : (
           <p>No activities yet</p>
         )}
-
-        {/* FLEX LAYOUT */}
-        <div class='wrapper'>
-          <div class='header'>
-            Header
-            <div>
-              {' '}
-              <ul class='navigation'>
-                <li>
-                  <a href='#'>Home</a>
-                </li>
-                <li>
-                  <a href='#'>About</a>
-                </li>
-                <li>
-                  <a href='#'>Products</a>
-                </li>
-                <li>
-                  <a href='#'>Contact</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <article class='main'>
-            <p>
-              Pellentesque habitant morbi tristique senectus et netus et
-              malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat
-              vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit
-              amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
-              placerat eleifend leo.
-            </p>
-          </article>
-          <aside class='aside aside-1'>Aside 1</aside>
-          <aside class='aside aside-2'>Aside 2</aside>
-          <footer class='footer'>Footer</footer>
-        </div>
       </main>
     </div>
   );
 };
 
-export default App;
+export default ActivityDashboard;

@@ -11,5 +11,6 @@
     "server": "yarn --cwd server dev",
     "client": "yarn --cwd client start",
     "dev": "yarn server & yarn client"
-  }
+  },
+  "dependencies": {}
 }
