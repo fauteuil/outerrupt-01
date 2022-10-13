@@ -1,30 +1,31 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 
 import './App.css';
 import './Layout.css';
 import { labels } from './common/text.ts';
+import { ActivityList } from './views/activities/ActivityList';
 
 const App = () => {
-  const [activities, setActivities] = useState([]);
+  // const [activities, setActivities] = useState([]);
 
   const token = localStorage.getItem('token');
 
   /* Fetching the data from the backend and setting the state of activities to the data. */
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/activities`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const data = await result.json();
-      setActivities(data);
-    };
-    fetchData();
-  }, [token]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const result = await fetch(
+  //       `${process.env.REACT_APP_BACKEND_URL}/activities`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+  //     const data = await result.json();
+  //     setActivities(data);
+  //   };
+  //   fetchData();
+  // }, [token]);
 
   /**
    * When the user clicks the submit button, the function will prevent the default action of the form,
@@ -77,7 +78,7 @@ const App = () => {
       <main className='app-main'>
         <h2>Today</h2>
 
-        {activities && activities.length > 0 ? (
+        {/* {activities && activities.length > 0 ? (
           <ol>
             {activities.map((activity) => (
               <li key={activity._id}>
@@ -87,15 +88,15 @@ const App = () => {
           </ol>
         ) : (
           <p>No activities yet</p>
-        )}
+        )} */}
 
         {/* FLEX LAYOUT */}
-        <div class='wrapper'>
-          <div class='header'>
-            Header
+        <div className='wrapper'>
+          <div className='header'>
+            {/* Header */}
             <div>
               {' '}
-              <ul class='navigation'>
+              <ul className='navigation'>
                 <li>
                   <a href='#'>Home</a>
                 </li>
@@ -111,8 +112,11 @@ const App = () => {
               </ul>
             </div>
           </div>
-          <article class='main'>
+          <aside className='aside aside-2'>(Timer)</aside>
+          <article className='main'>
             <p>
+              Details
+              <br />
               Pellentesque habitant morbi tristique senectus et netus et
               malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat
               vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit
@@ -120,9 +124,10 @@ const App = () => {
               placerat eleifend leo.
             </p>
           </article>
-          <aside class='aside aside-1'>Aside 1</aside>
-          <aside class='aside aside-2'>Aside 2</aside>
-          <footer class='footer'>Footer</footer>
+          <aside className='aside aside-1'>
+            <ActivityList />
+          </aside>
+          <footer className='footer'>Footer</footer>
         </div>
       </main>
     </div>

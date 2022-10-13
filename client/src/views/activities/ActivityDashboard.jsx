@@ -2,29 +2,12 @@ import { useEffect, useState } from 'react';
 
 import './App.css';
 import './Layout.css';
-import { labels } from './common/text';
+import { labels } from '../../common/text';
 
 const ActivityDashboard = () => {
   const [activities, setActivities] = useState([]);
 
   const token = localStorage.getItem('token');
-
-  /* Fetching the data from the backend and setting the state of activities to the data. */
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/activities`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const data = await result.json();
-      setActivities(data);
-    };
-    fetchData();
-  }, [token]);
 
   /**
    * When the user clicks the submit button, the function will prevent the default action of the form,
