@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { DateTimeUnits } from '../../common/defaults';
-import { useActivity } from '../../features/activity/useActivity';
+// import { useActivity } from '../../features/activity/useActivity';
 import { PlayButton } from '../button/play-button';
 import { PauseButton } from '../button/pause-button';
 
@@ -27,13 +27,13 @@ export function OrangeTimer(props: TimerProps) {
     startTimer,
     timerRunning,
   } = useTimer({ fullTime, handleTimerEnd });
-  const { selectedActivityId } = useActivity();
+  // const { selectedActivityId } = useActivity();
 
   // /** Reset the timer when the selectedActivityId changes */
-  useEffect(() => {
-    const currentActivityId = selectedActivityId;
-    resetTimer();
-  }, [selectedActivityId]);
+  // useEffect(() => {
+  //   const currentActivityId = selectedActivityId;
+  //   resetTimer();
+  // }, [selectedActivityId]);
 
   useEffect(() => {
     console.log('OT mounted');

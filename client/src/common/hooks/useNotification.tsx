@@ -1,5 +1,4 @@
 import { labels } from '../text';
-import { NotificationWrapper } from '../../components/notification/notification.styles';
 import defaultIcon from '../../assets/images/outerrupt-icon-01.png';
 import { useCallback, useEffect, useState } from 'react';
 import { DateTimeUnits } from '../defaults';
@@ -26,7 +25,7 @@ export function useNotification() {
         setBlurred(false);
       }
     }
-  }, []);
+  }, [blurred]);
 
   // const handleBlur = useCallback(() => {
   //   setBlurred(true);
@@ -57,7 +56,7 @@ export function useNotification() {
       window.removeEventListener('blur', handleVisibiltyChange);
       window.removeEventListener('focus', handleVisibiltyChange);
     }
-  }, []);
+  }, [handleVisibiltyChange]);
 
   function showNotification({
     message,

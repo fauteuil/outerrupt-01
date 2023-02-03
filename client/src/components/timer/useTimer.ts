@@ -9,6 +9,7 @@ export const useTimer = ({
   fullTime = FULL_TIME_DEFAULT,
   handleTimerEnd,
 }: TimerProps) => {
+  // const fullTime = 15000;
   const timerRef = useRef<number>(0);
   const [currentTime, setCurrentTime] = useState(fullTime);
   const [timerRunning, setTimerRunning] = useState(false);
@@ -30,7 +31,7 @@ export const useTimer = ({
     return () => {
       clearTimer();
     };
-  }, [currentTime, handleTimerEnd]);
+  }, [currentTime, fullTime, handleTimerEnd]);
 
   function handleComplete(handler?: any) {
     setTimerRunning(false);

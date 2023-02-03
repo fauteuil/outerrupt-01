@@ -2,11 +2,42 @@
 
 import './App.css';
 import './Layout.css';
-import { labels } from './common/text.ts';
-import { ActivityList } from './views/activities/ActivityList';
+// import { labels } from './common/text.ts';
+import { ActivityList } from './features/activities/ActivityList';
+import { ActivityDetails } from './features/activities/ActivityDetails';
+import { Navigation } from './components/layout/Navigation';
+import { OrangeTimer } from './components/timer/OrangeTimer';
+import { labels } from './common/text';
+import { useTimer } from './components/timer/useTimer';
+import { useNotification } from './common/hooks/useNotification';
+import { FormEvent, useMemo } from 'react';
+import { useCallback } from 'react';
+import { useActivity } from './features/activities/useActivity';
+import { ActivityAdd, ActivityAddForm } from './features/activities/Activity';
 
-const App = () => {
+export function App() {
   // const [activities, setActivities] = useState([]);
+  const { selectNextActivity } = useActivity();
+
+  const { requestAndShowNotification } = useNotification();
+
+  const timerNotification = useCallback(() => {
+    requestAndShowNotification({
+      message: `next: ${'neeexxxxtttttt'}`,
+      title: 'next!',
+      link: '/activity',
+      activityId: '1234',
+    });
+  }, [requestAndShowNotification]);
+
+  // const { selectNextActivity } = useTimer({
+  //   // fullTime: 15000,
+  //   // handleTimerEnd: requestAndShowNotification,
+  //   handleTimerEnd: timerNotification,
+  //   // handleTimerEnd: () => {
+  //   //   console.log('wtf?');
+  //   // },
+  // });
 
   const token = localStorage.getItem('token');
 
@@ -32,12 +63,14 @@ const App = () => {
    * create a new activity object with the name and time values from the form, and then send a POST
    * request to the backend to create a new activity
    */
-  const addActivity = async (event) => {
+  const addActivity = async (event: FormEvent<ActivityAddForm>) => {
     event.preventDefault();
 
     const newActivity = {
-      name: event.target.activity.value,
-      time: event.target.time.value,
+      // name: event.target.activity.value,
+      // time: event.target.time.value,
+      name: event.currentTarget.elements.name.value,
+      time: event.currentTarget.elements.time.value,
     };
 
     await fetch(`${process.env.REACT_APP_BACKEND_URL}/activity`, {
@@ -49,10 +82,13 @@ const App = () => {
       body: JSON.stringify(newActivity),
     });
 
-    event.target.activity.value = '';
-    event.target.time.value = '';
-    window.location.reload();
+    // event.target.elements.name.value = '';
+    // event.target.elements.time.value = '';
+
+    // window.location.reload();
   };
+
+  // function selectNextActivity() {}
 
   return (
     <div className='app'>
@@ -63,8 +99,8 @@ const App = () => {
             <label htmlFor='activity'>Activity:</label>
             <input
               type='text'
-              id='activity'
-              name='activity'
+              id='name'
+              name='name'
               autoComplete='off'
             />
           </div>
@@ -96,33 +132,14 @@ const App = () => {
             {/* Header */}
             <div>
               {' '}
-              <ul className='navigation'>
-                <li>
-                  <a href='#'>Home</a>
-                </li>
-                <li>
-                  <a href='#'>About</a>
-                </li>
-                <li>
-                  <a href='#'>Products</a>
-                </li>
-                <li>
-                  <a href='#'>Contact</a>
-                </li>
-              </ul>
+              <Navigation />
             </div>
           </div>
-          <aside className='aside aside-2'>(Timer)</aside>
+          <aside className='aside aside-2'>
+            <OrangeTimer handleTimerEnd={selectNextActivity} />
+          </aside>
           <article className='main'>
-            <p>
-              Details
-              <br />
-              Pellentesque habitant morbi tristique senectus et netus et
-              malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat
-              vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit
-              amet quam egestas semper. Aenean ultricies mi vitae est. Mauris
-              placerat eleifend leo.
-            </p>
+            <ActivityDetails />
           </article>
           <aside className='aside aside-1'>
             <ActivityList />
@@ -132,6 +149,4 @@ const App = () => {
       </main>
     </div>
   );
-};
-
-export default App;
+}

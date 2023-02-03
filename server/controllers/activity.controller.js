@@ -11,9 +11,30 @@ const getActivities = async (req, res) => {
     const activities = await Activity.find();
     res.status(200).json(activities);
   } catch (err) {
-    console.log('dude, wtf?');
+    console.log(`getActivities - error: ${err}`);
     res.status(500).json({ message: err.message });
   }
+};
+
+const getActivity = async (req, res) => {
+  // try {
+
+  const activity = await Activity.findById(req.params.id)
+    .then((activity) => res.status(200).json(activity))
+    .catch((err) => {
+      console.log(`getActivity - error: ${err}`);
+      res.status(400).json(`Error: ${err}`);
+    });
+  // }
+
+  //   const activities = await Activity.find();
+  //   res.status(200).json(activities);
+  // }
+  // catch (err) {
+  //   console.log(`getActivities - error: ${err}`);
+  //   res.status(500).json({ message: err.message });
+  // }
+  // };
 };
 
 /**
@@ -33,6 +54,7 @@ const addActivity = async (req, res) => {
 };
 
 module.exports = {
-  getActivities,
   addActivity,
+  getActivities,
+  getActivity,
 };

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Visible } from '../../types';
+import { Visible } from '../../common/types';
 
 export const OrangeCircle = styled.div`
   border: 1rem solid orange;

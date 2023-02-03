@@ -1,15 +1,11 @@
-import {
-  useHistory,
-  useLocation,
-  useParams,
-  useRouteMatch,
-} from 'react-router-dom';
-import { MatchParams } from '../../types';
+import { redirect, useLocation, useParams } from 'react-router-dom';
+import { MatchParams } from '../types';
+// import { MatchParams } from '../../types';
 
 export const useRouter = () => {
-  const history = useHistory();
+  // const history = useHistory();
   const location = useLocation();
-  const match = useRouteMatch();
+  // const match = useMatch();
 
   // Get the values of dynamic parameters from the current URL.
   const routerParams = useParams<MatchParams>();
@@ -17,8 +13,9 @@ export const useRouter = () => {
   const searchParams = new URLSearchParams(location.search);
   // navigate to a passed URL via history.
   function navigate(path: string) {
-    history.push(path);
+    // history.push(path);
+    redirect(path);
   }
 
-  return { history, location, match, navigate, routerParams, searchParams };
+  return { location, navigate, routerParams, searchParams };
 };
