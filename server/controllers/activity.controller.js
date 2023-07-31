@@ -6,32 +6,32 @@ const Activity = require('../models/activity.model');
  * @param req - The request object.
  * @param res - the response object
  */
-const getActivities = async (req, res) => {
+const getActivityList = async (req, res) => {
   try {
     const activities = await Activity.find();
     res.status(200).json(activities);
   } catch (err) {
-    console.log(`getActivities - error: ${err}`);
+    console.log(`getActivityList - error: ${err}`);
     res.status(500).json({ message: err.message });
   }
 };
 
 const getActivity = async (req, res) => {
-  // try {
+  try {
+    const activity = await Activity.findById(req.params.id);
+    res.status(200).json(activity);
+  } catch (err) {
+    console.log(`getActivity - error: ${err}`);
+    res.status(400).json(`Error: ${err}`);
+  }
 
-  const activity = await Activity.findById(req.params.id)
-    .then((activity) => res.status(200).json(activity))
-    .catch((err) => {
-      console.log(`getActivity - error: ${err}`);
-      res.status(400).json(`Error: ${err}`);
-    });
   // }
 
   //   const activities = await Activity.find();
   //   res.status(200).json(activities);
   // }
   // catch (err) {
-  //   console.log(`getActivities - error: ${err}`);
+  //   console.log(`getActivityList - error: ${err}`);
   //   res.status(500).json({ message: err.message });
   // }
   // };
@@ -47,7 +47,10 @@ const addActivity = async (req, res) => {
 
   try {
     const newActivity = await activity.save();
-    res.status(201).json(newActivity);
+    // getActivityList();
+    const activities = await Activity.find();
+    res.status(200).json(activities);
+    // res.status(201).json(newActivity);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -55,6 +58,6 @@ const addActivity = async (req, res) => {
 
 module.exports = {
   addActivity,
-  getActivities,
+  getActivityList,
   getActivity,
 };

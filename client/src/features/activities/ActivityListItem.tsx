@@ -1,21 +1,19 @@
 import { Activity } from "./Activity";
 import { useActivity } from "./useActivity";
 
-export function ActivityDetails() {
-  const { selectActivity, selectedActivity } = useActivity();
+export function ActivityListItem(ActivityListItemProps: { activity: Activity }) {
+  const { selectActivity } = useActivity();
+  const { activity } = ActivityListItemProps;
   return (
-    <div
+    <li
       style={{ cursor: 'pointer' }}
-      title={`${selectedActivity.name}`}
-      key={selectedActivity._id}
-    // onClick={selectActivity(selectedActivity)}
-    // onClick={selectActivity(selectedActivity._id)}
+      title={`go to ${activity.name}`}
+      key={activity._id}
+      // onClick={selectActivity(activity)}
+      onClick={selectActivity(activity._id)}
     >
-      {selectedActivity.name} - {selectedActivity.time}
-      <br />
-      {selectedActivity.description}
-    </div>
-
+      {activity.name} - {activity.time}
+    </li>
 
     // <p>
     //   Details

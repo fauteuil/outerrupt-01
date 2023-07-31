@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { useEffect, useState } from 'react';
+import { ActivityListItem } from './ActivityListItem';
 
 import { useActivity } from './useActivity';
 
@@ -38,15 +39,16 @@ export function ActivityList() {
       {activityList && activityList.length > 0 ? (
         <ol>
           {activityList.map((activity) => (
-            <li
-              style={{ cursor: 'pointer' }}
-              title={`go to ${activity.name}`}
-              key={activity._id}
-              // onClick={selectActivity(activity)}
-              onClick={selectActivity(activity._id)}
-            >
-              {activity.name} - {activity.time}
-            </li>
+            <ActivityListItem activity={activity} key={activity._id} />
+            // <li
+            //   style={{ cursor: 'pointer' }}
+            //   title={`go to ${activity.name}`}
+            //   key={activity._id}
+            //   // onClick={selectActivity(activity)}
+            //   onClick={selectActivity(activity._id)}
+            // >
+            //   {activity.name} - {activity.time}
+            // </li>
           ))}
         </ol>
       ) : (

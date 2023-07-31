@@ -2,7 +2,7 @@ const express = require('express');
 
 const {
   addActivity,
-  getActivities,
+  getActivityList,
   getActivity,
 } = require('../controllers/activity.controller');
 const auth = require('../middleware/auth');
@@ -10,15 +10,16 @@ const auth = require('../middleware/auth');
 const router = express.Router();
 
 /* Creating a route for the get request. */
-// router.get("/activities", auth, getActivities);
+// router.get("/activities", auth, getActivityList);
 
-router.get('/activities', getActivities);
+router.get('/activities', getActivityList);
 /* Creating a route for the post request. */
 // router.post("/activity", auth, addActivity);
 router.post('/activity', addActivity);
 
 // CRUD - TODO
-router.get('/activity/:id').get(getActivity);
+// router.get('/activity/:id').get(getActivity);
+router.get('/activity/:id', getActivity);
 // router.route('/activity/:id').get((req, res) => {
 //   Activity.findById(req.params.id)
 //     .then((activity) => res.json(activity))

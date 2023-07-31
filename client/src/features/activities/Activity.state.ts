@@ -1,4 +1,4 @@
-import { atom, selector } from 'recoil';
+import { atom, selector, selectorFamily } from 'recoil';
 import { Activity } from './Activity';
 
 // import axios from 'axios';
@@ -7,7 +7,7 @@ import { Activity } from './Activity';
 
 // import { Activity, Activities } from './types';
 // import { axiosRequest } from '../../service/api';
-// import { getActivityList } from './service';
+// import { getActivityList } from '../../../../server/controllers';
 
 // const lorem = new LoremIpsum({
 //   sentencesPerParagraph: {
@@ -21,9 +21,17 @@ import { Activity } from './Activity';
 // });
 
 const defaultActivity: Activity = {
-  _id: '',
-  name: '',
-  description: '',
+  _id: 'wsdc-wsd',
+  name: 'hoy',
+  description: 'it is i',
+  time: '213',
+};
+
+const defaultActivity2: Activity = {
+  _id: 'wsdc-ws09iujhd',
+  name: 'hoooooy',
+  description: 'it is i am i',
+  time: '253',
 };
 
 // export const defaultActivityList: Activities = [
@@ -59,29 +67,31 @@ const defaultActivity: Activity = {
 //   },
 // ];
 
-// export const activityListSelector = selector<Array<Activity>>({
-//   key: 'activityListSelector',
-//   get: async () => {
-//     try {
-//       const list = await getActivityList();
-//       return list;
-//     } catch (error) {
-//       console.error('activityListSelector - error');
-//       throw new Error('activityListSelector - error');
-//     }
-//   },
-// });
-
-// export const activityListState = atom<Activities>({
-//   key: 'activityListState',
-//   // default: defaultActivityList,
-//   default: activityListSelector,
-// });
+export const activityListSelector = selector<Array<Activity>>({
+  key: 'activityListSelector',
+  get: async () => {
+    try {
+      return [];
+      // const list = await getActivityList();
+      // const list = [defaultActivity, defaultActivity2];
+      // return list;
+    } catch (error) {
+      console.error('activityListSelector - error');
+      throw new Error('activityListSelector - error');
+    }
+  },
+});
 
 export const activityListState = atom<Activity[]>({
   key: 'activityListState',
-  default: [],
+  // default: defaultActivityList,
+  default: activityListSelector,
 });
+
+// export const activityListState = atom<Activity[]>({
+//   key: 'activityListState',
+//   default: [],
+// });
 
 export const selectedActivityIdState = atom<string>({
   key: 'selectedActivityIdState',
@@ -99,3 +109,21 @@ export const selectedActivityState = selector<Activity>({
     // return selectedItem || list[0] || defaultActivity;
   },
 });
+
+// export const selectedActivityQuerySelector = selectorFamily<
+//   Activity | undefined,
+//   number | string | undefined
+// >({
+//   key: 'selectedActivityQuerySelector',
+//   get: (selectedActivityId) => async ({ get }) => {
+//     // if (!selectedActivityId || selectedActivityId < 0) {
+//     if (!selectedActivityId) {
+//       return undefined;
+//     }
+//     get(selectedActivityRequestIdState(selectedActivityId)); // Add request ID as a dependency
+//     return tryCatchLog(async () => {
+//       const response = await getActivity(selectedActivityId);
+//       // return convertToBidState(response);
+//     }, 'selectedActivityQuerySelector');
+//   },
+// });

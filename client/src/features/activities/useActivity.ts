@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import {
   useRecoilCallback,
   useRecoilState,
   useRecoilStateLoadable,
   useRecoilValue,
+  useRecoilValueLoadable,
   useResetRecoilState,
 } from 'recoil';
 
@@ -20,10 +21,12 @@ import { useNotification } from '../../common/hooks/useNotification';
 import { useRouter } from '../../common/hooks/useRouter';
 import {
   activityListState,
-  selectedActivityIdState,
+  // selectedActivityQuerySelector,
+  // selectedActivityIdState,
   selectedActivityState,
 } from './Activity.state';
 import { Activity } from './Activity';
+import { useIdFromRoute } from '../../common/hooks/useIdFromRoute';
 
 const token = localStorage.getItem('token');
 
@@ -36,7 +39,8 @@ export function useActivity() {
   // TODO - replace with service call
   // const activityList: Activity[] = [];
 
-  const [activityList, setActivityList] = useRecoilState(activityListState);
+  // const [activityList, setActivityList] = useRecoilState(activityListState);
+  const [activityList, setActivityList] = useState<Activity[]>([]);
 
   // activityListLoadable?.state === 'hasValue'
   // activityListLoadable?.valueMaybe() || [];
@@ -44,13 +48,48 @@ export function useActivity() {
   const resetTimer = useResetRecoilState(orangeTimerState);
   const { requestAndShowNotification } = useNotification();
 
-  const [selectedActivityId, setSelectedActivityId] = useRecoilState(
-    selectedActivityIdState
+  // const [selectedActivityId] = useRecoilState(selectedActivityIdState);
+  // const [selectedActivityId, setSelectedActivityId] = useRecoilState(
+  //   selectedActivityIdState
+  // );
+
+  const { selectedActivityId } = useIdFromRoute();
+
+  // const selectedActivity = useRecoilValue(selectedActivityState);
+
+  const selectedActivity = useMemo(
+    () =>
+      activityList.find((activity) => activity._id === selectedActivityId) ||
+      ({} as Activity),
+    [activityList, selectedActivityId]
   );
 
-  const selectedActivity = useRecoilValue(selectedActivityState);
+  // const selectedActivityLoadable = useRecoilValueLoadable(
+  //   selectedActivityQuerySelector(selectedActivityId)
+  // );
+  // const selectedActivity = selectedActivityLoadable.valueMaybe();
 
-  const { navigate, routerParams } = useRouter();
+  // const { navigate, routerParams } = useRouter();
+  const { navigate } = useRouter();
+  // const activityId = useMemo(() => {
+  //   return routerParams.id || '';
+  // }, [routerParams.id]);
+  // routerParams;
+
+  // const { navigate } = useRouter();
+
+  // // Set the selected activity id by URL value.
+  // useEffect(() => {
+  //   // const { id: activityId = '' } = routerParams;
+  //   if (selectedActivityId !== activityId) {
+  //     // if (localStorage.getItem('selectedActivityId') !== activityId) {
+  //     //   localStorage.setItem('selectedActivityId', activityId);
+
+  //     // setSelectedActivityId(activityId);
+  //     // console.log('setting itemId', activityId);
+  //   }
+  //   // }, [routerParams, selectedActivityId, setSelectedActivityId]);
+  // }, []]);
 
   /* Fetching the data from the backend and setting the state of activities to the data. */
   useEffect(() => {
@@ -69,15 +108,6 @@ export function useActivity() {
     fetchData();
   }, [setActivityList]);
 
-  // Set the selected activity id by URL value.
-  useEffect(() => {
-    const { itemId: activityId = '' } = routerParams;
-    if (selectedActivityId !== activityId) {
-      setSelectedActivityId(activityId);
-      // console.log('setting itemId', activityId);
-    }
-  }, [routerParams, selectedActivityId, setSelectedActivityId]);
-
   // Select activity by id and navigate
   // function selectActivity(id: string) {
   // const selectActivity = useCallback(
@@ -90,8 +120,8 @@ export function useActivity() {
       ({ _id }) => _id === id //selectedActivityId
     );
     const nextSelectedItem = activities[selectedIndex];
-    // navigate(`/activity/${nextSelectedItem._id}`);
-    window.location.href = `/activity/${nextSelectedItem._id}`;
+    navigate(`/activity/${nextSelectedItem._id}`);
+    // window.location.href = `/activity/${nextSelectedItem._id}`;
     // },
     //   [activityList, navigate, selectedActivityId]
     // );
@@ -135,6 +165,6 @@ export function useActivity() {
     selectedActivity,
     selectNextActivity,
     // setActivityListLoadable,
-    setSelectedActivityId,
+    // setSelectedActivityId,
   };
 }

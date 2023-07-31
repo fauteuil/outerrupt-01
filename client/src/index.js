@@ -12,10 +12,10 @@ import { RecoilRoot } from 'recoil';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Router>
-      <RecoilRoot>
+    <RecoilRoot>
+      <Router>
         <App />
-      </RecoilRoot>
-    </Router>
+      </Router>
+    </RecoilRoot>
   </React.StrictMode>
 );

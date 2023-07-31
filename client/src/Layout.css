@@ -12,7 +12,8 @@
 }
 
 .header {
-  background: tomato;
+  /* background: tomato; */
+  background: rgb(215, 215, 215);
 }
 
 .navigation {
@@ -23,7 +24,8 @@
 
   list-style: none;
   margin: 0;
-  background: deepskyblue;
+  /* background: deepskyblue; */
+  background: rgb(160, 160, 160);
 }
 .navigation a {
   text-decoration: none;
@@ -33,26 +35,31 @@
 }
 
 .navigation a:hover {
-  background: #1565c0;
+  /* background: #1565c0; */
+  background: #7e7e7e;
 }
 
 .footer {
-  background: lightgreen;
+  /* background: lightgreen; */
+  background: rgb(194, 194, 194);
   position: relative;
   bottom: 0;
 }
 
 .main {
   text-align: left;
-  background: deepskyblue;
+  /* background: deepskyblue; */
+  background: rgb(156, 156, 156);
 }
 
 .aside-1 {
-  background: gold;
+  /* background: gold; */
+  background: rgb(220, 220, 220);
 }
 
 .aside-2 {
-  background: hotpink;
+  /* background: hotpink; */
+  background: rgb(174, 174, 174);
 }
 
 @media all and (min-width: 500px) {
